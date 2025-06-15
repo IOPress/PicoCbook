@@ -1,0 +1,4 @@
+.program blink   
+again:
+  out pins,2
+  jmp again 

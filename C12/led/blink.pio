@@ -1,0 +1,5 @@
+.program blink 
+again:
+ in pins,1
+ push block
+ jmp  again 
