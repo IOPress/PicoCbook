@@ -26,9 +26,9 @@ endif()
 set(PICO_BOARD pico2 CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
-include(pico_sdk_import.cmake)
 
-set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_LIST_DIR}/FreeRTOS-Kernel)
+include(pico_sdk_import.cmake)
+set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_LIST_DIR}/../FreeRTOS-Kernel)
 # Adjust path if different
 include(FreeRTOS_Kernel_import.cmake)
 
@@ -50,19 +50,18 @@ pico_enable_stdio_usb(hellofreertos 0)
 
 # Add the standard library to the build
 target_link_libraries(hellofreertos
-        pico_stdlib)
+        pico_stdlib
+        pico_multicore
+        FreeRTOS-Kernel
+        FreeRTOS-Kernel-Heap4
+        
+        )
 
 # Add the standard include files to the build
 target_include_directories(hellofreertos PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
         include/
 )
-target_link_libraries(hellofreertos 
-        pico_multicore
-        FreeRTOS-Kernel
-        FreeRTOS-Kernel-Heap4
-        )
-
 
 pico_add_extra_outputs(hellofreertos)
 

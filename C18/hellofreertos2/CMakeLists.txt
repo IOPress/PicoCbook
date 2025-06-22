@@ -23,48 +23,46 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico2_w CACHE STRING "Board type")
+set(PICO_BOARD pico2 CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
-set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_LIST_DIR}/../FreeRTOS-Kernel)
+
+set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_LIST_DIR}/FreeRTOS-Kernel)
 # Adjust path if different
 include(FreeRTOS_Kernel_import.cmake)
 
-project(webclient C CXX ASM)
+project(hellofreertos C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(webclient webclient.c )
+add_executable(hellofreertos hellofreertos.c )
 
-pico_set_program_name(webclient "webclient")
-pico_set_program_version(webclient "0.1")
+pico_set_program_name(hellofreertos "hellofreertos")
+pico_set_program_version(hellofreertos "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(webclient 1)
-pico_enable_stdio_usb(webclient 0)
+pico_enable_stdio_uart(hellofreertos 1)
+pico_enable_stdio_usb(hellofreertos 0)
 
 # Add the standard library to the build
-target_link_libraries(webclient
+target_link_libraries(hellofreertos
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(webclient PRIVATE
+target_include_directories(hellofreertos PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
         include/
 )
-
-# Add any user requested libraries
-target_link_libraries(webclient 
-    pico_cyw43_arch_lwip_sys_freertos
-    pico_lwip_http
-    pico_multicore
-    FreeRTOS-Kernel
-    FreeRTOS-Kernel-Heap4
+target_link_libraries(hellofreertos 
+        pico_multicore
+        FreeRTOS-Kernel
+        FreeRTOS-Kernel-Heap4
         )
 
-pico_add_extra_outputs(webclient)
+
+pico_add_extra_outputs(hellofreertos)
 
