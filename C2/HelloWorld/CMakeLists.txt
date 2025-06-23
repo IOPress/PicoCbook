@@ -28,30 +28,30 @@ set(PICO_BOARD pico2 CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(HelloWord C CXX ASM)
+project(HelloWorld C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(HelloWord HelloWord.c )
+add_executable(HelloWorld HelloWorld.c )
 
-pico_set_program_name(HelloWord "HelloWord")
-pico_set_program_version(HelloWord "0.1")
+pico_set_program_name(HelloWorld "HelloWorld")
+pico_set_program_version(HelloWorld "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(HelloWord 1)
-pico_enable_stdio_usb(HelloWord 0)
+pico_enable_stdio_uart(HelloWorld 1)
+pico_enable_stdio_usb(HelloWorld 0)
 
 # Add the standard library to the build
-target_link_libraries(HelloWord
+target_link_libraries(HelloWorld
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(HelloWord PRIVATE
+target_include_directories(HelloWorld PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
-pico_add_extra_outputs(HelloWord)
+pico_add_extra_outputs(HelloWorld)
 
