@@ -27,27 +27,29 @@ set(PICO_BOARD pico2 CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
+
 set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_LIST_DIR}/../FreeRTOS-Kernel)
 # Adjust path if different
 include(FreeRTOS_Kernel_import.cmake)
-project(tear C CXX ASM)
+
+project(gpiofreertos C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(tear tear.c )
+add_executable(gpiofreertos gpiofreertos.c )
 
-pico_set_program_name(tear "tear")
-pico_set_program_version(tear "0.1")
+pico_set_program_name(gpiofreertos "gpiofreertos")
+pico_set_program_version(gpiofreertos "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(tear 1)
-pico_enable_stdio_usb(tear 0)
+pico_enable_stdio_uart(gpiofreertos 0)
+pico_enable_stdio_usb(gpiofreertos 0)
 
 # Add the standard library to the build
-target_link_libraries(tear
+target_link_libraries(gpiofreertos
         pico_stdlib
         pico_multicore
         FreeRTOS-Kernel
@@ -55,10 +57,10 @@ target_link_libraries(tear
         )
 
 # Add the standard include files to the build
-target_include_directories(tear PRIVATE
+target_include_directories(gpiofreertos PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
         include/
 )
 
-pico_add_extra_outputs(tear)
+pico_add_extra_outputs(gpiofreertos)
 
