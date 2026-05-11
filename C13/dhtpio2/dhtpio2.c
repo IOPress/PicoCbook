@@ -14,8 +14,8 @@ uint dhtInitalize(PIO pio, int gpio)
     sm_config_set_set_pins(&c, gpio, 1);
     sm_config_set_in_pins(&c, gpio);
     sm_config_set_in_shift(&c, false, true, 32);
-    pio_sm_init(pio0, sm, offset, &c);
-    pio_sm_set_enabled(pio0, sm, true);
+    pio_sm_init(pio, sm, offset, &c);
+    pio_sm_set_enabled(pio, sm, true);
     return sm;
 }
 typedef struct
@@ -34,7 +34,7 @@ void dhtread(PIO pio, uint sm, dhtData *reading)
  uint8_t byte2 = (data >> 16 & 0xFF);
  uint8_t byte3 = (data >> 8 & 0xFF);
  uint8_t byte4 = (data & 0xFF);
- uint8_t checksum = pio_sm_get_blocking(pio0, sm) & 0xFF;
+ uint8_t checksum = pio_sm_get_blocking(pio, sm) & 0xFF;
 
  reading->error = (checksum != 
  ((byte1 + byte2 + byte3 + byte4) & 0xFF));
