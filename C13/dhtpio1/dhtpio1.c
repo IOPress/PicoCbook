@@ -15,15 +15,15 @@ uint dhtInitalize(PIO pio, int gpio)
     sm_config_set_in_pins(&c, gpio);
     sm_config_set_jmp_pin(&c, gpio);
     sm_config_set_in_shift(&c, true, true, 32);
-    pio_sm_init(pio0, sm, offset, &c);
+    pio_sm_init(pio, sm, offset, &c);
 
-    pio_sm_set_enabled(pio0, sm, true);
+    pio_sm_set_enabled(pio, sm, true);
     return sm;
 }
 
 uint8_t getByte(PIO pio, uint sm)
 {
-    uint32_t count = pio_sm_get_blocking(pio0, sm);
+    uint32_t count = pio_sm_get_blocking(pio, sm);
     uint8_t byte = 0;
     for (int i = 0; i < 8; i++)
     {
